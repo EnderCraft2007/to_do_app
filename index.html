@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <style>
+        body {
+            font-family: 'Poppins', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-top: 0;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        .profile-pic {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background-color: #dfe6e9;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .profile-pic svg {
+            width: 30px;
+            height: 30px;
+            fill: #b2bec3;
+        }
+        .user-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #dfe6e9;
+        }
+        #login-view, #app-view, #home-view {
+            display: none;
+        }
+        #home-view {
+            display: block; /* Default view */
+        }
+        .home-content {
+            text-align: left;
+            color: #2d3436;
+        }
+        .home-hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .home-hero h2 {
+            font-size: 2rem;
+            color: #6c5ce7;
+            margin-bottom: 0.5rem;
+        }
+        .home-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .article {
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .article h3 {
+            color: #2d3436;
+            margin-top: 1.5rem;
+            border-left: 4px solid #6c5ce7;
+            padding-left: 10px;
+        }
+        .cta-btn {
+            display: block;
+            width: fit-content;
+            margin: 2rem auto 0;
+            background: linear-gradient(to right, #6c5ce7, #a29bfe);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .input-row {
+            display: flex;
+            gap: 8px;
+        }
+        input[type="text"], input[type="password"], input[type="date"], input[type="time"] {
+            padding: 0.8rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #6c5ce7;
+        }
+        input[type="text"], input[type="password"] {
+            flex-grow: 1;
+        }
+        button {
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        #login-btn, #add-btn {
+            background: linear-gradient(to right, #6c5ce7, #a29bfe);
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+        #login-btn:hover, #add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+        }
+        #logout-btn {
+            background-color: #fab1a0;
+            color: #d63031;
+            padding: 0.5rem 1rem;
+            font-size: 13px;
+        }
+        #logout-btn:hover {
+            background-color: #ff7675;
+            color: white;
+        }
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            background: #f1f2f6;
+            padding: 10px 15px;
+            border-radius: 12px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            flex-direction: column;
+            padding: 1.2rem;
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            gap: 8px;
+            transition: transform 0.2s;
+        }
+        li:hover {
+            transform: scale(1.02);
+        }
+        .todo-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .todo-text {
+            flex-grow: 1;
+            cursor: pointer;
+            font-weight: 600;
+            color: #2d3436;
+        }
+        .todo-text.completed {
+            text-decoration: line-through;
+            color: #b2bec3;
+        }
+        li.expired {
+            border-left: 5px solid #ff7675;
+            background-color: #fff5f5;
+        }
+        li.expired .todo-text {
+            color: #d63031;
+        }
+        li.expired .todo-details i.overdue {
+            background: #ff7675;
+            color: white;
+        }
+        .todo-details {
+            font-size: 12px;
+            color: #636e72;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .todo-details i {
+            font-style: normal;
+            background: #dfe6e9;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .delete-btn {
+            background-color: #ff7675;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            font-size: 12px;
+            border-radius: 8px;
+        }
+        .delete-btn:hover {
+            background-color: #d63031;
+        }
+        #message {
+            font-size: 14px;
+            text-align: center;
+            margin-top: 5px;
+            min-height: 20px;
+        }
+        .error { color: #d63031; }
+        .success { color: #00b894; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do App</h1>
+
+        <div id="home-view">
+            <div class="home-hero">
+                <h2>Master Your Time</h2>
+                <p>Organize your life, achieve your goals, and stay productive every day.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=500&q=80" alt="Planning" class="home-image">
+            <div class="home-content">
+                <div class="article">
+                    <h3>The Art of Time Management</h3>
+                    <p>Good time management isn't about doing more things; it's about doing the right things. By prioritizing tasks and setting clear deadlines, you reduce stress and increase focus.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=500&q=80" alt="Calendar" class="home-image" style="height: 150px; margin-top: 1rem;">
+                    
+                    <h3>3 Simple Steps to Start</h3>
+                    <ol>
+                        <li><strong>Write it down:</strong> Don't rely on memory. Capture every task.</li>
+                        <li><strong>Set Deadlines:</strong> Give every task a clear date and time.</li>
+                        <li><strong>One thing at a time:</strong> Multitasking is a myth. Focus on one task until it's done.</li>
+                    </ol>
+                </div>
+            </div>
+            <button class="cta-btn" id="start-btn">Get Started Now</button>
+        </div>
+        
+        <div id="login-view">
+            <div class="input-group">
+                <input type="text" id="username-input" placeholder="Username">
+                <input type="password" id="password-input" placeholder="Password">
+                <button id="login-btn">Login / Register</button>
+                <div id="message"></div>
+            </div>
+        </div>
+
+        <div id="app-view">
+            <div class="profile-pic">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+            </div>
+            <div class="user-info">
+                <span>Welcome, <strong id="current-user-display"></strong></span>
+                <button id="logout-btn">Logout</button>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="todo-input" placeholder="What needs to be done?">
+                <div class="input-row">
+                    <input type="date" id="todo-date">
+                    <input type="time" id="todo-time">
+                    <button id="add-btn">Add</button>
+                </div>
+            </div>
+            <ul id="todo-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        const homeView = document.getElementById('home-view');
+        const loginView = document.getElementById('login-view');
+        const appView = document.getElementById('app-view');
+        const startBtn = document.getElementById('start-btn');
+        const usernameInput = document.getElementById('username-input');
+        const passwordInput = document.getElementById('password-input');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const currentUserDisplay = document.getElementById('current-user-display');
+        const messageDiv = document.getElementById('message');
+
+        const todoInput = document.getElementById('todo-input');
+        const todoDate = document.getElementById('todo-date');
+        const todoTime = document.getElementById('todo-time');
+        const addBtn = document.getElementById('add-btn');
+        const todoList = document.getElementById('todo-list');
+
+        let currentUser = null;
+        let todos = JSON.parse(localStorage.getItem('todos_v3')) || [];
+        let users = JSON.parse(localStorage.getItem('users_v3')) || {};
+
+        function showMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = type;
+            setTimeout(() => {
+                messageDiv.textContent = '';
+                messageDiv.className = '';
+            }, 3000);
+        }
+
+        function login() {
+            const username = usernameInput.value.trim().toLowerCase();
+            const password = passwordInput.value;
+
+            if (!username || !password) {
+                showMessage('Please enter both username and password', 'error');
+                return;
+            }
+
+            if (users[username]) {
+                if (users[username] === password) {
+                    performLogin(username);
+                } else {
+                    showMessage('Incorrect password', 'error');
+                }
+            } else {
+                users[username] = password;
+                localStorage.setItem('users_v3', JSON.stringify(users));
+                showMessage('Account created!', 'success');
+                performLogin(username);
+            }
+        }
+
+        function performLogin(username) {
+            currentUser = username;
+            currentUserDisplay.textContent = username;
+            homeView.style.display = 'none';
+            loginView.style.display = 'none';
+            appView.style.display = 'block';
+            renderTodos();
+            usernameInput.value = '';
+            passwordInput.value = '';
+        }
+
+        function logout() {
+            currentUser = null;
+            homeView.style.display = 'block';
+            loginView.style.display = 'none';
+            appView.style.display = 'none';
+        }
+
+        function showLogin() {
+            homeView.style.display = 'none';
+            loginView.style.display = 'flex';
+            appView.style.display = 'none';
+        }
+
+        function addTodo() {
+            const text = todoInput.value.trim();
+            const date = todoDate.value;
+            const time = todoTime.value;
+            
+            if (text === '') return;
+
+            const newTodo = {
+                id: Date.now(),
+                user: currentUser,
+                text: text,
+                date: date,
+                time: time,
+                completed: false
+            };
+
+            todos.push(newTodo);
+            saveTodos();
+            renderTodos();
+
+            todoInput.value = '';
+            todoDate.value = '';
+            todoTime.value = '';
+            todoInput.focus();
+        }
+
+        function toggleTodo(id) {
+            todos = todos.map(todo => 
+                todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            );
+            saveTodos();
+            renderTodos();
+        }
+
+        function deleteTodo(id) {
+            todos = todos.filter(todo => todo.id !== id);
+            saveTodos();
+            renderTodos();
+        }
+
+        function saveTodos() {
+            localStorage.setItem('todos_v3', JSON.stringify(todos));
+        }
+
+        function renderTodos() {
+            todoList.innerHTML = '';
+            const userTodos = todos.filter(t => t.user === currentUser);
+            const now = new Date();
+
+            userTodos.forEach(todo => {
+                const li = document.createElement('li');
+                
+                let isExpired = false;
+                if (todo.date && !todo.completed) {
+                    const dueDateTime = new Date(todo.date + (todo.time ? 'T' + todo.time : 'T23:59:59'));
+                    if (dueDateTime < now) {
+                        isExpired = true;
+                        li.classList.add('expired');
+                    }
+                }
+
+                const mainDiv = document.createElement('div');
+                mainDiv.className = 'todo-main';
+
+                const span = document.createElement('span');
+                span.textContent = todo.text;
+                span.classList.add('todo-text');
+                if (todo.completed) span.classList.add('completed');
+                span.onclick = () => toggleTodo(todo.id);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.onclick = () => deleteTodo(todo.id);
+
+                mainDiv.appendChild(span);
+                mainDiv.appendChild(deleteBtn);
+
+                li.appendChild(mainDiv);
+
+                if (todo.date || todo.time) {
+                    const details = document.createElement('div');
+                    details.className = 'todo-details';
+                    
+                    if (todo.date) {
+                        const dateBadge = document.createElement('i');
+                        dateBadge.textContent = todo.date;
+                        if (isExpired) dateBadge.classList.add('overdue');
+                        details.appendChild(dateBadge);
+                    }
+                    if (todo.time) {
+                        const timeBadge = document.createElement('i');
+                        timeBadge.textContent = todo.time;
+                        if (isExpired) timeBadge.classList.add('overdue');
+                        details.appendChild(timeBadge);
+                    }
+                    li.appendChild(details);
+                }
+
+                todoList.appendChild(li);
+            });
+        }
+
+        loginBtn.onclick = login;
+        logoutBtn.onclick = logout;
+        addBtn.onclick = addTodo;
+        startBtn.onclick = showLogin;
+
+        usernameInput.onkeypress = (e) => {
+            if (e.key === 'Enter') passwordInput.focus();
+        };
+
+        passwordInput.onkeypress = (e) => {
+            if (e.key === 'Enter') login();
+        };
+
+        todoInput.onkeypress = (e) => {
+            if (e.key === 'Enter') addTodo();
+        };
+
+    </script>
+</body>
+</html>
