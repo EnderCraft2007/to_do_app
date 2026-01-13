@@ -21,7 +21,7 @@ function login(username, password) {
 
 function performLogin(username) {
     localStorage.setItem('currentUser_v3', username);
-    window.location.href = 'app.html';
+    window.location.href = 'todo_app_dashboard.html';
     return { success: true };
 }
 
@@ -49,7 +49,7 @@ function addTodo(text, date, time) {
 }
 
 function toggleTodo(id) {
-    todos = todos.map(todo => 
+    todos = todos.map(todo =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
     );
     saveTodos();
