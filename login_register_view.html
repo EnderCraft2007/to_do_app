@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App | Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Login / Register</h1>
+        <div id="login-view" style="display: flex;">
+            <div class="input-group">
+                <input type="text" id="username-input" placeholder="Username">
+                <input type="password" id="password-input" placeholder="Password">
+                <button id="login-btn">Login / Register</button>
+                <div id="message"></div>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 1rem;"><a href="index.html">Back to Home</a></p>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        const loginBtn = document.getElementById('login-btn');
+        const messageDiv = document.getElementById('message');
+
+        function showMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = type;
+        }
+
+        loginBtn.onclick = () => {
+            const user = document.getElementById('username-input').value;
+            const pass = document.getElementById('password-input').value;
+            const res = login(user, pass);
+            if (res && !res.success) {
+                showMessage(res.message, 'error');
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="app-view" style="display: block;">
+            <div class="user-info">
+                <span>Welcome, <strong id="current-user-display"></strong></span>
+                <button onclick="logout()">Logout</button>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="todo-input" placeholder="What needs to be done?">
+                <div class="input-row">
+                    <input type="date" id="todo-date">
+                    <input type="time" id="todo-time">
+                    <button id="add-btn">Add</button>
+                </div>
+            </div>
+            <ul id="todo-list"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const currentUser = localStorage.getItem('currentUser_v3');
+        if (!currentUser) window.location.href = 'login.html';
+
+        document.getElementById('current-user-display').textContent = currentUser;
+
+        function renderTodos() {
+            const todoList = document.getElementById('todo-list');
+            todoList.innerHTML = '';
+            const userTodos = getTodosForUser();
+            const now = new Date();
+
+            userTodos.forEach(todo => {
+                const li = document.createElement('li');
+                let isExpired = false;
+                if (todo.date && !todo.completed) {
+                    const due = new Date(todo.date + (todo.time ? 'T' + todo.time : 'T23:59:59'));
+                    if (due < now) {
+                        isExpired = true;
+                        li.classList.add('expired');
+                    }
+                }
+
+                li.innerHTML = `
+                    <div class="todo-main">
+                        <span class="todo-text ${todo.completed ? 'completed' : ''}" onclick="handleToggle(${todo.id})">
+                            ${todo.text}
+                        </span>
+                        <button class="delete-btn" onclick="handleDelete(${todo.id})">Delete</button>
+                    </div>
+                    ${(todo.date || todo.time) ? `
+                        <div class="todo-details">
+                            <i class="${isExpired ? 'overdue' : ''}">${todo.date || ''} ${todo.time || ''}</i>
+                        </div>
+                    ` : ''}
+                `;
+                todoList.appendChild(li);
+            });
+        }
+
+        window.handleToggle = (id) => { toggleTodo(id); renderTodos(); };
+        window.handleDelete = (id) => { deleteTodo(id); renderTodos(); };
+
+        document.getElementById('add-btn').onclick = () => {
+            const input = document.getElementById('todo-input');
+            const date = document.getElementById('todo-date');
+            const time = document.getElementById('todo-time');
+            
+            addTodo(input.value, date.value, time.value);
+            input.value = ''; date.value = ''; time.value = '';
+            renderTodos();
+        };
+
+        renderTodos();
+    </script>
+</body>
+</html>
