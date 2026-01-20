@@ -1,63 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do App</title>
+    <title>Teendőkezelő Alkalmazás</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main>
-        <h1>To-Do App</h1>
+        <h1>Teendőkezelő Alkalmazás</h1>
 
         <section id="home-view">
             <header>
-                <h2>Master Your Time</h2>
-                <p>Organize your life, achieve your goals, and stay productive every day.</p>
+                <h2>Urald az idődet</h2>
+                <p>Rendszerezd az életed, érd el céljaidat, és maradj produktív minden nap.</p>
             </header>
-            <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=500&q=80" alt="Planning" class="home-image">
+            <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=500&q=80" alt="Tervezés" class="home-image">
             <article>
-                <h3>The Art of Time Management</h3>
-                <p>Good time management isn't about doing more things; it's about doing the right things. By prioritizing tasks and setting clear deadlines, you reduce stress and increase focus.</p>
+                <h3>Az időgazdálkodás művészete</h3>
+                <p>A jó időgazdálkodás nem arról szól, hogy több dolgot csinálsz; hanem arról, hogy a megfelelő dolgokat csinálod. A feladatok priorizálásával és világos határidők kitűzésével csökkented a stresszt és növeled a fókuszt.</p>
                 
-                <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=500&q=80" alt="Calendar" class="home-image" style="height: 150px; margin-top: 1rem;">
+                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=500&q=80" alt="Naptár" class="home-image" style="height: 150px; margin-top: 1rem;">
                 
-                <h3>3 Simple Steps to Start</h3>
+                <h3>3 egyszerű lépés a kezdéshez</h3>
                 <ol>
-                    <li><strong>Write it down:</strong> Don't rely on memory. Capture every task.</li>
-                    <li><strong>Set Deadlines:</strong> Give every task a clear date and time.</li>
-                    <li><strong>One thing at a time:</strong> Multitasking is a myth. Focus on one task until it's done.</li>
+                    <li><strong>Írd le:</strong> Ne hagyatkozz az emlékezetedre. Rögzíts minden feladatot.</li>
+                    <li><strong>Állíts be határidőket:</strong> Adj minden feladatnak egyértelmű dátumot és időpontot.</li>
+                    <li><strong>Egyszerre csak egy dologgal foglalkozz:</strong> A multitasking mítosz. Koncentrálj egy feladatra, amíg kész nem lesz.</li>
                 </ol>
             </article>
-            <button class="cta-btn" id="start-btn">Get Started Now</button>
-        </section>
-        
-        <section id="login-view">
-            <p>
-                <input type="text" id="username-input" placeholder="Username">
-                <input type="password" id="password-input" placeholder="Password">
-                <button id="login-btn">Login / Register</button>
-            </p>
-            <p id="message"></p>
-        </section>
-
-        <section id="app-view">
-            <header>
-                <span>Welcome, <strong id="current-user-display"></strong></span>
-                <button id="logout-btn">Logout</button>
-            </header>
-
-            <section>
-                <input type="text" id="todo-input" placeholder="What needs to be done?">
-                <p>
-                    <input type="date" id="todo-date">
-                    <input type="time" id="todo-time">
-                    <button id="add-btn">Add</button>
-                </p>
-            </section>
-            <ul id="todo-list"></ul>
+            <button class="cta-btn" onclick="location.href='login.html'">Kezdés most</button>
         </section>
     </main>
-
 </body>
 </html>

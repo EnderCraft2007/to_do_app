@@ -1,269 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do App</title>
+    <title>Teendőkezelő Alkalmazás</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>To-Do App</h1>
+        <h1>Teendőkezelő Alkalmazás</h1>
 
         <div id="home-view">
             <div class="home-hero">
-                <h2>Master Your Time</h2>
-                <p>Organize your life, achieve your goals, and stay productive every day.</p>
+                <h2>Urald az idődet</h2>
+                <p>Rendszerezd az életed, érd el céljaidat, és maradj produktív minden nap.</p>
             </div>
-            <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=500&q=80" alt="Planning" class="home-image">
+            <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=500&q=80" alt="Tervezés" class="home-image">
             <div class="home-content">
                 <div class="article">
-                    <h3>The Art of Time Management</h3>
-                    <p>Good time management isn't about doing more things; it's about doing the right things. By prioritizing tasks and setting clear deadlines, you reduce stress and increase focus.</p>
+                    <h3>Az időgazdálkodás művészete</h3>
+                    <p>A jó időgazdálkodás nem arról szól, hogy több dolgot csinálsz; hanem arról, hogy a megfelelő dolgokat csinálod. A feladatok priorizálásával és világos határidők kitűzésével csökkented a stresszt és növeled a fókuszt.</p>
                     
-                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=500&q=80" alt="Calendar" class="home-image" style="height: 150px; margin-top: 1rem;">
+                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=500&q=80" alt="Naptár" class="home-image" style="height: 150px; margin-top: 1rem;">
                     
-                    <h3>3 Simple Steps to Start</h3>
+                    <h3>3 egyszerű lépés a kezdéshez</h3>
                     <ol>
-                        <li><strong>Write it down:</strong> Don't rely on memory. Capture every task.</li>
-                        <li><strong>Set Deadlines:</strong> Give every task a clear date and time.</li>
-                        <li><strong>One thing at a time:</strong> Multitasking is a myth. Focus on one task until it's done.</li>
+                        <li><strong>Írd le:</strong> Ne hagyatkozz az emlékezetedre. Rögzíts minden feladatot.</li>
+                        <li><strong>Állíts be határidőket:</strong> Adj minden feladatnak egyértelmű dátumot és időpontot.</li>
+                        <li><strong>Egyszerre csak egy dologgal foglalkozz:</strong> A multitasking mítosz. Koncentrálj egy feladatra, amíg kész nem lesz.</li>
                     </ol>
                 </div>
             </div>
-            <button class="cta-btn" id="start-btn">Get Started Now</button>
-        </div>
-        
-        <div id="login-view">
-            <div class="input-group">
-                <input type="text" id="username-input" placeholder="Username">
-                <input type="password" id="password-input" placeholder="Password">
-                <button id="login-btn">Login / Register</button>
-                <div id="message"></div>
-            </div>
-        </div>
-
-        <div id="app-view">
-            <div class="profile-pic">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                </svg>
-            </div>
-            <div class="user-info">
-                <span>Welcome, <strong id="current-user-display"></strong></span>
-                <button id="logout-btn">Logout</button>
-            </div>
-
-            <div class="input-group">
-                <input type="text" id="todo-input" placeholder="What needs to be done?">
-                <div class="input-row">
-                    <input type="date" id="todo-date">
-                    <input type="time" id="todo-time">
-                    <button id="add-btn">Add</button>
-                </div>
-            </div>
-            <ul id="todo-list"></ul>
+            <button class="cta-btn" id="start-btn" onclick="location.href='login.html'">Kezdés most</button>
         </div>
     </div>
 
     <script>
-        const homeView = document.getElementById('home-view');
-        const loginView = document.getElementById('login-view');
-        const appView = document.getElementById('app-view');
-        const startBtn = document.getElementById('start-btn');
-        const usernameInput = document.getElementById('username-input');
-        const passwordInput = document.getElementById('password-input');
-        const loginBtn = document.getElementById('login-btn');
-        const logoutBtn = document.getElementById('logout-btn');
-        const currentUserDisplay = document.getElementById('current-user-display');
-        const messageDiv = document.getElementById('message');
-
-        const todoInput = document.getElementById('todo-input');
-        const todoDate = document.getElementById('todo-date');
-        const todoTime = document.getElementById('todo-time');
-        const addBtn = document.getElementById('add-btn');
-        const todoList = document.getElementById('todo-list');
-
-        let currentUser = null;
-        let todos = JSON.parse(localStorage.getItem('todos_v3')) || [];
-        let users = JSON.parse(localStorage.getItem('users_v3')) || {};
-
-        function showMessage(text, type) {
-            messageDiv.textContent = text;
-            messageDiv.className = type;
-            setTimeout(() => {
-                messageDiv.textContent = '';
-                messageDiv.className = '';
-            }, 3000);
+        // In the backup version, we redirect to login.html if not logged in
+        // and to dashboard if logged in.
+        const currentUser = localStorage.getItem('currentUser_v3');
+        if (currentUser) {
+            window.location.href = 'todo_app_dashboard.html';
         }
-
-        function login() {
-            const username = usernameInput.value.trim().toLowerCase();
-            const password = passwordInput.value;
-
-            if (!username || !password) {
-                showMessage('Please enter both username and password', 'error');
-                return;
-            }
-
-            if (users[username]) {
-                if (users[username] === password) {
-                    performLogin(username);
-                } else {
-                    showMessage('Incorrect password', 'error');
-                }
-            } else {
-                users[username] = password;
-                localStorage.setItem('users_v3', JSON.stringify(users));
-                showMessage('Account created!', 'success');
-                performLogin(username);
-            }
-        }
-
-        function performLogin(username) {
-            currentUser = username;
-            currentUserDisplay.textContent = username;
-            homeView.style.display = 'none';
-            loginView.style.display = 'none';
-            appView.style.display = 'block';
-            renderTodos();
-            usernameInput.value = '';
-            passwordInput.value = '';
-        }
-
-        function logout() {
-            currentUser = null;
-            homeView.style.display = 'block';
-            loginView.style.display = 'none';
-            appView.style.display = 'none';
-        }
-
-        function showLogin() {
-            homeView.style.display = 'none';
-            loginView.style.display = 'flex';
-            appView.style.display = 'none';
-        }
-
-        function addTodo() {
-            const text = todoInput.value.trim();
-            const date = todoDate.value;
-            const time = todoTime.value;
-            
-            if (text === '') return;
-
-            const newTodo = {
-                id: Date.now(),
-                user: currentUser,
-                text: text,
-                date: date,
-                time: time,
-                completed: false
-            };
-
-            todos.push(newTodo);
-            saveTodos();
-            renderTodos();
-
-            todoInput.value = '';
-            todoDate.value = '';
-            todoTime.value = '';
-            todoInput.focus();
-        }
-
-        function toggleTodo(id) {
-            todos = todos.map(todo => 
-                todo.id === id ? { ...todo, completed: !todo.completed } : todo
-            );
-            saveTodos();
-            renderTodos();
-        }
-
-        function deleteTodo(id) {
-            todos = todos.filter(todo => todo.id !== id);
-            saveTodos();
-            renderTodos();
-        }
-
-        function saveTodos() {
-            localStorage.setItem('todos_v3', JSON.stringify(todos));
-        }
-
-        function renderTodos() {
-            todoList.innerHTML = '';
-            const userTodos = todos.filter(t => t.user === currentUser);
-            const now = new Date();
-
-            userTodos.forEach(todo => {
-                const li = document.createElement('li');
-                
-                let isExpired = false;
-                if (todo.date && !todo.completed) {
-                    const dueDateTime = new Date(todo.date + (todo.time ? 'T' + todo.time : 'T23:59:59'));
-                    if (dueDateTime < now) {
-                        isExpired = true;
-                        li.classList.add('expired');
-                    }
-                }
-
-                const mainDiv = document.createElement('div');
-                mainDiv.className = 'todo-main';
-
-                const span = document.createElement('span');
-                span.textContent = todo.text;
-                span.classList.add('todo-text');
-                if (todo.completed) span.classList.add('completed');
-                span.onclick = () => toggleTodo(todo.id);
-
-                const deleteBtn = document.createElement('button');
-                deleteBtn.textContent = 'Delete';
-                deleteBtn.classList.add('delete-btn');
-                deleteBtn.onclick = () => deleteTodo(todo.id);
-
-                mainDiv.appendChild(span);
-                mainDiv.appendChild(deleteBtn);
-
-                li.appendChild(mainDiv);
-
-                if (todo.date || todo.time) {
-                    const details = document.createElement('div');
-                    details.className = 'todo-details';
-                    
-                    if (todo.date) {
-                        const dateBadge = document.createElement('i');
-                        dateBadge.textContent = todo.date;
-                        if (isExpired) dateBadge.classList.add('overdue');
-                        details.appendChild(dateBadge);
-                    }
-                    if (todo.time) {
-                        const timeBadge = document.createElement('i');
-                        timeBadge.textContent = todo.time;
-                        if (isExpired) timeBadge.classList.add('overdue');
-                        details.appendChild(timeBadge);
-                    }
-                    li.appendChild(details);
-                }
-
-                todoList.appendChild(li);
-            });
-        }
-
-        loginBtn.onclick = login;
-        logoutBtn.onclick = logout;
-        addBtn.onclick = addTodo;
-        startBtn.onclick = showLogin;
-
-        usernameInput.onkeypress = (e) => {
-            if (e.key === 'Enter') passwordInput.focus();
-        };
-
-        passwordInput.onkeypress = (e) => {
-            if (e.key === 'Enter') login();
-        };
-
-        todoInput.onkeypress = (e) => {
-            if (e.key === 'Enter') addTodo();
-        };
-
     </script>
 </body>
 </html>

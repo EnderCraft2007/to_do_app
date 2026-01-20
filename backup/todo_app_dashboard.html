@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do App | Dashboard</title>
+    <title>Teendőkezelő | Vezérlőpult</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div id="app-view" style="display: block;">
             <div class="user-info">
-                <span>Welcome, <strong id="current-user-display"></strong></span>
-                <button onclick="logout()">Logout</button>
+                <span>Üdvözöljük, <strong id="current-user-display"></strong></span>
+                <button onclick="logout()">Kijelentkezés</button>
             </div>
 
             <div class="input-group">
-                <input type="text" id="todo-input" placeholder="What needs to be done?">
+                <input type="text" id="todo-input" placeholder="Mi a teendő?">
                 <div class="input-row">
                     <input type="date" id="todo-date">
                     <input type="time" id="todo-time">
-                    <button id="add-btn">Add</button>
+                    <button id="add-btn">Hozzáadás</button>
                 </div>
             </div>
             <ul id="todo-list"></ul>
@@ -29,7 +29,7 @@
     <script src="script.js"></script>
     <script>
         const currentUser = localStorage.getItem('currentUser_v3');
-        if (!currentUser) window.location.href = 'login_register_view.html';
+        if (!currentUser) window.location.href = 'login.html';
 
         document.getElementById('current-user-display').textContent = currentUser;
 
@@ -55,7 +55,7 @@
                         <span class="todo-text ${todo.completed ? 'completed' : ''}" onclick="handleToggle(${todo.id})">
                             ${todo.text}
                         </span>
-                        <button class="delete-btn" onclick="handleDelete(${todo.id})">Delete</button>
+                        <button class="delete-btn" onclick="handleDelete(${todo.id})">Törlés</button>
                     </div>
                     ${(todo.date || todo.time) ? `
                         <div class="todo-details">
