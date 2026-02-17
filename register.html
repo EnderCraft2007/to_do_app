@@ -7,18 +7,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav>
+        <ul id="nav-items">
+        </ul>
+    </nav>
     <main>
-        <h1>Csatlakozzon hozzánk!</h1>
-        <p style="text-align: center;">Hozzon létre egy új fiókot a produktivitás megkezdéséhez.</p>
-        <section id="login-view" style="display: block;">
-            <p>
-                <input type="text" placeholder="Válasszon felhasználónevet">
-                <input type="password" placeholder="Válasszon jelszót">
-                <button onclick="location.href='todo_app_dashboard.html'">Fiók létrehozása</button>
-            </p>
+        <section id="register-view">
+            <h2>Regisztráció</h2>
+            <form onsubmit="register(event)">
+                <input type="text" id="reg-name" placeholder="Teljes név" required>
+                <input type="email" id="reg-email" placeholder="Email cím" required>
+                <input type="text" id="reg-username" placeholder="Felhasználónév" required>
+                <input type="password" id="reg-password" placeholder="Jelszó" required>
+                <input type="password" id="reg-password-confirm" placeholder="Jelszó újra" required>
+                <button type="submit">Regisztráció</button>
+            </form>
+            <p>Már van fiókod? <a href="login.html">Jelentkezz be itt</a></p>
         </section>
-        <p style="text-align: center; margin-top: 1rem;">Már van fiókod? <a href="login.html">Jelentkezzen be itt</a></p>
-        <p style="text-align: center; margin-top: 1rem;"><a href="index.html">Vissza a főoldalra</a></p>
     </main>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav>
+        <ul id="nav-items">
+        </ul>
+    </nav>
     <main>
         <h1>Teendőkezelő Alkalmazás</h1>
 
@@ -19,9 +23,7 @@
             <article>
                 <h3>Az időgazdálkodás művészete</h3>
                 <p>A jó időgazdálkodás nem arról szól, hogy több dolgot csinálsz; hanem arról, hogy a megfelelő dolgokat csinálod. A feladatok priorizálásával és világos határidők kitűzésével csökkented a stresszt és növeled a fókuszt.</p>
-                
-                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=500&q=80" alt="Naptár" class="home-image" style="height: 150px; margin-top: 1rem;">
-                
+                <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=500&q=80" alt="Naptár" class="home-image" style="height: 150px; margin-top: 1rem;">
                 <h3>3 egyszerű lépés a kezdéshez</h3>
                 <ol>
                     <li><strong>Írd le:</strong> Ne hagyatkozz az emlékezetedre. Rögzíts minden feladatot.</li>
@@ -29,8 +31,10 @@
                     <li><strong>Egyszerre csak egy dologgal foglalkozz:</strong> A multitasking mítosz. Koncentrálj egy feladatra, amíg kész nem lesz.</li>
                 </ol>
             </article>
-            <button class="cta-btn" onclick="location.href='login.html'">Kezdés most</button>
+            <a href="login.html" class="cta-btn" style="display: inline-block; text-decoration: none; text-align: center;">Kezdés most</a>
         </section>
+
     </main>
+    <script src="script.js"></script>
 </body>
 </html>

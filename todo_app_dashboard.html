@@ -7,54 +7,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav>
+        <ul id="nav-items">
+        </ul>
+    </nav>
     <main>
-        <section id="app-view" style="display: block;">
-            <header>
-                <span>Üdvözöljük, <strong>Dev</strong></span>
-                <button onclick="location.href='index.html'">Kijelentkezés</button>
-            </header>
-
-            <section>
-                <input type="text" placeholder="Mi a teendő?">
-                <p>
-                    <input type="date">
-                    <input type="time">
-                    <button>Hozzáadás</button>
-                </p>
-            </section>
-            <ul id="todo-list">
-                <li>
-                    <div>
-                        <input type="checkbox">
-                        <div>
-                            <strong>Bevásárlás</strong>
-                            <span>2026-01-21 16:30</span>
-                        </div>
-                    </div>
-                    <button style="background-color: #ff3b30; margin-left: 10px;">Törlés</button>
-                </li>
-                <li>
-                    <div>
-                        <input type="checkbox" checked>
-                        <div>
-                            <strong>Kutya sétáltatás</strong>
-                            <span>2026-01-20 08:00</span>
-                        </div>
-                    </div>
-                    <button style="background-color: #ff3b30; margin-left: 10px;">Törlés</button>
-                </li>
-                <li>
-                    <div>
-                        <input type="checkbox">
-                        <div>
-                            <strong>Tanulás - Webprogramozás</strong>
-                            <span>2026-01-22 10:00</span>
-                        </div>
-                    </div>
-                    <button style="background-color: #ff3b30; margin-left: 10px;">Törlés</button>
-                </li>
+        <section id="user-events-view">
+            <div id="create-event-area">
+                <h2>Új Esemény Létrehozása</h2>
+                <form onsubmit="createEvent(event)">
+                    <input type="text" id="new-event-title" placeholder="Esemény címe" required>
+                    <input type="date" id="new-event-date" required>
+                    <button type="submit">Esemény létrehozása</button>
+                </form>
+            </div>
+            
+            <hr style="margin: 20px 0;">
+            
+            <h2>Saját/Felvett Események</h2>
+            <ul id="user-event-list">
             </ul>
         </section>
+
     </main>
+    <script src="script.js"></script>
 </body>
 </html>

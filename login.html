@@ -7,18 +7,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav>
+        <ul id="nav-items">
+        </ul>
+    </nav>
     <main>
-        <h1>Üdvözöljük újra!</h1>
-        <p style="text-align: center;">Kérjük, jelentkezzen be a teendői eléréséhez.</p>
-        <section id="login-view" style="display: block;">
-            <p>
-                <input type="text" placeholder="Felhasználónév" value="Dev">
-                <input type="password" placeholder="Jelszó" value="password">
-                <button onclick="location.href='todo_app_dashboard.html'">Bejelentkezés</button>
-            </p>
+        <section id="login-view">
+            <h2>Bejelentkezés</h2>
+            <form onsubmit="login(event)">
+                <input type="text" id="login-username" placeholder="Felhasználónév" required>
+                <input type="password" id="login-password" placeholder="Jelszó" required>
+                <button type="submit">Bejelentkezés</button>
+            </form>
+            <p>Nincs még fiókod? <a href="register.html">Regisztrálj itt</a></p>
         </section>
-        <p style="text-align: center; margin-top: 1rem;">Nincs még fiókod? <a href="register.html">Hozzon létre egyet itt</a></p>
-        <p style="text-align: center; margin-top: 1rem;"><a href="index.html">Vissza a főoldalra</a></p>
     </main>
+    <script src="script.js"></script>
 </body>
 </html>
