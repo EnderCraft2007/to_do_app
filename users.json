@@ -3,6 +3,9 @@
         "username": "Dev",
         "password": "password",
         "name": "Developer User",
-        "email": "dev@example.com"
+        "email": "dev@example.com",
+        "phone": "+36301234567",
+        "city": "Budapest",
+        "birthdate": "1990-01-01"
     }
 ]

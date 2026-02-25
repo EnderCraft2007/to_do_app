@@ -215,6 +215,28 @@ form {
     background-color: #dc2626;
 }
 
+/* Profil oldal stílusok */
+.profile-info {
+    background: #f1f5f9;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.profile-info p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+}
+
+.change-password {
+    border-top: 2px solid #e2e8f0;
+    padding-top: 2rem;
+}
+
+.change-password h3 {
+    margin-bottom: 1rem;
+}
+
 .joined-status {
     color: var(--success);
     font-weight: 600;

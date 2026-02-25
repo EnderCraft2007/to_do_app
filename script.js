@@ -250,10 +250,61 @@ function renderProfile() {
     if (!profileContent || !currentUser) return;
     
     profileContent.innerHTML = `
-        <p><strong>Felhasználónév:</strong> ${currentUser.username}</p>
-        <p><strong>Név:</strong> ${currentUser.name || 'Nincs megadva'}</p>
-        <p><strong>Email:</strong> ${currentUser.email || 'Nincs megadva'}</p>
+        <div class="profile-info">
+            <p><strong>Felhasználónév:</strong> ${currentUser.username}</p>
+            <p><strong>Név:</strong> ${currentUser.name || 'Nincs megadva'}</p>
+            <p><strong>Email:</strong> ${currentUser.email || 'Nincs megadva'}</p>
+            <p><strong>Telefonszám:</strong> ${currentUser.phone || 'Nincs megadva'}</p>
+            <p><strong>Város:</strong> ${currentUser.city || 'Nincs megadva'}</p>
+            <p><strong>Születési dátum:</strong> ${currentUser.birthdate || 'Nincs megadva'}</p>
+        </div>
+        <div class="change-password">
+            <h3>Jelszó megváltoztatása</h3>
+            <form onsubmit="changePassword(event)">
+                <input type="password" id="old-password" placeholder="Régi jelszó" required>
+                <input type="password" id="new-password" placeholder="Új jelszó" required>
+                <input type="password" id="new-password-confirm" placeholder="Új jelszó újra" required>
+                <button type="submit">Jelszó frissítése</button>
+            </form>
+        </div>
     `;
+}
+
+// Jelszó változtatás
+function changePassword(e) {
+    e.preventDefault();
+    const oldPass = document.getElementById('old-password').value;
+    const newPass = document.getElementById('new-password').value;
+    const newPassConfirm = document.getElementById('new-password-confirm').value;
+
+    if (oldPass !== currentUser.password) {
+        alert('A régi jelszó hibás!');
+        return;
+    }
+
+    if (newPass !== newPassConfirm) {
+        alert('Az új jelszavak nem egyeznek!');
+        return;
+    }
+
+    if (newPass.length < 4) {
+        alert('Az új jelszónak legalább 4 karakterből kell állnia!');
+        return;
+    }
+
+    // Felhasználó adatainak frissítése a users listában
+    const userIndex = users.findIndex(u => u.username === currentUser.username);
+    if (userIndex !== -1) {
+        users[userIndex].password = newPass;
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        // Aktuális felhasználó frissítése
+        currentUser.password = newPass;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        
+        alert('Jelszó sikeresen megváltoztatva!');
+        e.target.reset();
+    }
 }
 
 // Bejelentkezés
@@ -279,6 +330,10 @@ function register(e) {
     const pass = document.getElementById('reg-password').value;
     const passConfirm = document.getElementById('reg-password-confirm').value;
     const name = document.getElementById('reg-name').value;
+    const email = document.getElementById('reg-email').value;
+    const phone = document.getElementById('reg-phone').value;
+    const city = document.getElementById('reg-city').value;
+    const birthdate = document.getElementById('reg-birthdate').value;
     
     if (pass !== passConfirm) {
         alert('A jelszavak nem egyeznek!');
@@ -290,13 +345,14 @@ function register(e) {
         return;
     }
     
-    const email = document.getElementById('reg-email') ? document.getElementById('reg-email').value : user + "@example.com";
-    
     const newUser = {
         username: user,
         password: pass,
         name: name,
-        email: email
+        email: email,
+        phone: phone,
+        city: city,
+        birthdate: birthdate
     };
     
     users.push(newUser);
