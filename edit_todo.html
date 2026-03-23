@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esemény szerkesztése - To-Do App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Esemény szerkesztése</h1>
+        <nav>
+            <ul id="nav-items">
+                <!-- JavaScript tölti fel -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="edit-event-area">
+            <form id="edit-event-form">
+                <input type="hidden" id="edit-event-id">
+                <div class="form-group">
+                    <label for="edit-event-title">Esemény neve:</label>
+                    <input type="text" id="edit-event-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-event-date">Dátum:</label>
+                    <input type="date" id="edit-event-date" required>
+                </div>
+                <button type="submit">Mentés</button>
+                <button type="button" onclick="window.location.href='todo_app_dashboard.html'">Mégse</button>
+            </form>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
